@@ -1,0 +1,23 @@
+{
+  "name": "check_nextcloud",
+  "version": "1.0.0",
+  "description": "Nagios/Icinga Nextcloud Security Check",
+  "main": "index.js",
+  "bin": {
+    "check_nextcloud": "./index.js"
+  },
+  "preferGlobal": true,
+  "repository": "https://github.com/hobbyquaker/check_nextcloud",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sebastian Raff hq@ccu.io",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.81.0",
+    "yargs": "^7.0.2"
+  },
+  "yargs": {
+    "boolean-negation": false
+  }
+}
