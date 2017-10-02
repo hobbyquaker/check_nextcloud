@@ -26,8 +26,18 @@ let config = require('yargs')
     })
     .option('r', {
         alias: 'requeue-minutes',
-        default: 180,
+        default: 720,
         describe: 'Requeue Scan if older than given minutes'
+    })
+    .option('s', {
+        alias: 'scan-age-warn',
+        default: 3,
+        describe: 'Warn if Scan is older than given days'
+    })
+    .option('t', {
+        alias: 'scan-age-critical',
+        default: 5,
+        describe: 'Critical if Scan is older than given days'
     })
     .help()
     .version()
@@ -89,6 +99,7 @@ function getResult(uuid, cb) {
 
 function outputResult(result, uuid, requeued) {
     let date = result.scannedAt.date.replace(/\.[0-9]{6}$/, '');
+    let now = new Date();
     let lastScan = new Date(date);
     lastScan = new Date(lastScan.getTime() - (lastScan.getTimezoneOffset() * 1000 * 60));
     date = new Date(lastScan.getTime());
@@ -126,17 +137,21 @@ function outputResult(result, uuid, requeued) {
         // CRITICAL CONDITIONS
         (result.rating < 2) ||
         (result.vulnerabilities > 0) ||
-        (hardeningMissing >= config.hardeningCritical)
+        (hardeningMissing >= config.hardeningCritical) ||
+        (now.getTime() - date.getTime() > (config.scanAgeCritical * 86400000))
     ) {
         exitcode = 2;
     } else if (
         // WARNING CONDITIONS
         (result[rating] < 4) ||
         (hardeningMissing >= config.hardeningWarning) ||
-        (!result.latestVersionInBranch && !config.disableLatestversionWarning)
+        (!result.latestVersionInBranch && !config.disableLatestversionWarning) ||
+        (now.getTime() - date.getTime() > (config.scanAgeWarn * 86400000))
     ) {
         exitcode = 1;
     }
+
+    console.log(now, date);
 
     switch (exitcode) {
         case 0:

@@ -27,7 +27,6 @@ Example: `check_nextcloud -u https://example.com/nextcloud`
 ```
 check_nextcloud <options>
 
-Options:
   -u, --nextcloud-url                  Nextcloud URL                  [required]
   -h, --hardening-warning              Number of missing Hardenings that
                                        generate Warning             [default: 2]
@@ -36,7 +35,11 @@ Options:
   -l, --disable-latestversion-warning  Don't generate Warning if not latest
                                        Version                         [boolean]
   -r, --requeue-minutes                Requeue Scan if older than given minutes
-                                                                  [default: 180]
+                                                                  [default: 720]
+  -s, --scan-age-warn                  Warn if Scan is older than given days
+                                                                    [default: 3]
+  -t, --scan-age-critical              Critical if Scan is older than given days
+                                                                    [default: 5]
   --help                               Show help                       [boolean]
   --version                            Show version number             [boolean]
 ```

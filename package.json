@@ -1,6 +1,6 @@
 {
   "name": "check_nextcloud",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Nagios/Icinga Nextcloud Security Check",
   "main": "index.js",
   "bin": {
