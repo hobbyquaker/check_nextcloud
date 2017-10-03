@@ -151,8 +151,6 @@ function outputResult(result, uuid, requeued) {
         exitcode = 1;
     }
 
-    console.log(now, date);
-
     switch (exitcode) {
         case 0:
             console.log('SCAN OK -', text);
