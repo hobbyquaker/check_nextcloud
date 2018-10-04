@@ -68,6 +68,13 @@ function getUUID(url, cb) {
         if (!err && body && body.uuid) {
             cb(null, body.uuid)
         } else {
+            if (err == null) {
+                if (body != null) {
+                    err=body;
+                } else {
+                    err="unknown";
+                }
+            }
             cb(err);
         }
     });
